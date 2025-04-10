@@ -1,6 +1,6 @@
 name: Docker Build and Push
 
-# Коли виконувати дію: після пушу в main-гілку
+
 on:
   push:
     branches:
