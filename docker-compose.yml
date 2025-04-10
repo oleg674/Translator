@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./database
+    container_name: translator_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: translator_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: translator_app
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:1@db:5432/translator_db"
+
+volumes:
+  db_data:
